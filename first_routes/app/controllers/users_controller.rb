@@ -1,7 +1,15 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
-    render json: @users
+    if params.empty?
+      @users = User.all
+    else
+      @users = User.find_by(username: params['username'])
+    end
+    if @users
+      render json: @users
+    else
+      render json: @users.errors.full_message, status: 404
+    end
   end
 
   def create
