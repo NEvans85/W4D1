@@ -15,4 +15,8 @@ class Artwork < ApplicationRecord
 
   has_many :comments,
            dependent: :destroy
+
+  has_many :commenters,
+           through: :comments,
+           source: :author
 end
