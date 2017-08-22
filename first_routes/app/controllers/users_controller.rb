@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     if @user.destroy
       render json: @user
     else
-      render plain: "record not found"
+      render json: @user.errors.full_messages, status: 404
     end
   end
 

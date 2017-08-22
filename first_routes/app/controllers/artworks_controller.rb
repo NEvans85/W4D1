@@ -1,7 +1,12 @@
 class ArtworksController < ApplicationController
   def index
-    @artworks = Artwork.all
-    render json: @artworks
+    user = User.find(params[:id])
+    @artworks = user.artworks + user.shared_artworks
+    if @artworks
+      render json: @artworks
+    else
+      render json: @artworks.errors.full_messages, status: 404
+    end
   end
 
   def create
@@ -18,7 +23,7 @@ class ArtworksController < ApplicationController
     if @artwork.destroy
       render json: @artwork
     else
-      render plain: 'Artwork not present in database.'
+      render json: @artwork.errors.full_messages, status: 404
     end
   end
 
