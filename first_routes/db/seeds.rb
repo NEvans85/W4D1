@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+250.times do
+  User.create([{ username: Faker::Internet.user_name }])
+end
+
+users = User.all.length
+
+750.times do
+  Artwork.create([{ title: Faker::Lorem.words(rand(1..4)),
+                    artist_id: rand(1..users),
+                    img_url: Faker::Internet.url }])
+end
+
+artworks = Artwork.all.length
+
+2250.times do
+  ArtworkShare.create([{ artwork_id: rand(1..artworks),
+                         viewer_id: rand(1..users) }])
+end
