@@ -21,7 +21,13 @@ end
 
 artworks = Artwork.all.length
 
-2250.times do
+1500.times do
   ArtworkShare.create([{ artwork_id: rand(1..artworks),
                          viewer_id: rand(1..users) }])
+end
+
+1000.times do
+  Comment.create([{ artwork_id: rand(1..artworks),
+                    author_id: rand(1..users),
+                    body: Faker::Lorem.words(rand(4..25)) }])
 end

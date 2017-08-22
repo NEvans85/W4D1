@@ -6,10 +6,13 @@ class Artwork < ApplicationRecord
              class_name: :User,
              foreign_key: :artist_id
 
-  has_many :artwork_shares
+  has_many :artwork_shares,
+           dependent: :destroy
 
   has_many :viewers,
            through: :artwork_shares,
            source: :viewer
 
+  has_many :comments,
+           dependent: :destroy
 end
